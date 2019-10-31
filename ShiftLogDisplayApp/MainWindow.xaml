@@ -1,0 +1,48 @@
+﻿<Window x:Class="ShiftLogDisplayApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:ShiftLogDisplayApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="900">
+    <ScrollViewer Margin="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Shift LogBook Data" Grid.Row="0" Grid.ColumnSpan="2"></Label>
+            <Label Content="Start Time" Grid.Row="1"></Label>
+            <Label Content="End Time" Grid.Row="2"></Label>
+
+            <xctk:DateTimePicker Format="Custom" x:Name="StartTimePicker"
+                FormatString="dd-MMM-yyyy HH:mm"
+                TimeFormat="Custom"
+                TimeFormatString="HH:mm"
+                Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" 
+                Value="{Binding StartTime}" Height="30" />
+            <xctk:DateTimePicker Format="Custom" x:Name="EndTimePicker"
+                FormatString="dd-MMM-yyyy HH:mm"
+                TimeFormat="Custom"
+                TimeFormatString="HH:mm"
+                Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" 
+                Value="{Binding EndTime}" Height="30" />
+
+            <DataGrid x:Name="LogBookDataView" Grid.ColumnSpan="2" FontSize="20" SelectionUnit="CellOrRowHeader" CanUserAddRows="False" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True" Grid.Row="3" MaxHeight="400"/>
+
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Margin="15" Padding="8" Content="Update Data" Click="Update_Click"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>
