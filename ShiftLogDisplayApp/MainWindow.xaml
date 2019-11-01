@@ -19,9 +19,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Shift LogBook Data" Grid.Row="0" Grid.ColumnSpan="2"></Label>
+            <Label Content="Shift LogBook Data" Grid.Row="0" Grid.ColumnSpan="3"></Label>
             <Label Content="Start Time" Grid.Row="1"></Label>
             <Label Content="End Time" Grid.Row="2"></Label>
 
@@ -38,9 +39,11 @@
                 Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" 
                 Value="{Binding EndTime}" Height="30" />
 
-            <DataGrid x:Name="LogBookDataView" Grid.ColumnSpan="2" FontSize="20" SelectionUnit="CellOrRowHeader" CanUserAddRows="False" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True" Grid.Row="3" MaxHeight="400"/>
+            <Button Grid.Row="2" Grid.Column="2" Margin="15 0" Padding="8" Content="Guess Times!" Click="GuessTimes_Click"/>
+            
+            <DataGrid x:Name="LogBookDataView" Grid.ColumnSpan="3" FontSize="20" SelectionUnit="CellOrRowHeader" CanUserAddRows="False" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True" Grid.Row="3" MaxHeight="400"/>
 
-            <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Margin="15" Padding="8" Content="Update Data" Click="Update_Click"/>
             </StackPanel>
         </Grid>

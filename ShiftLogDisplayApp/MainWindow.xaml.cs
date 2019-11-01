@@ -24,8 +24,8 @@ namespace ShiftLogDisplayApp
         public MainWindow()
         {
             InitializeComponent();
-            SetInitialStartEndTimes();
             DataContext = UIEditVM;
+            SetInitialStartEndTimes();
         }
 
         private UIVM UIEditVM = new UIVM();
@@ -58,6 +58,8 @@ namespace ShiftLogDisplayApp
             // set the start and end Times of UI
             UIEditVM.StartTime = startTime;
             UIEditVM.EndTime = endTime;
+            UIEditVM.OnPropertyChanged(nameof(UIEditVM.StartTime));
+            UIEditVM.OnPropertyChanged(nameof(UIEditVM.EndTime));
         }
 
 
@@ -90,13 +92,18 @@ namespace ShiftLogDisplayApp
             newRow.ItemArray = new string[] { maxFreq.Item2.ToString("0.###"), maxFreq.Item1, minFreq.Item2.ToString("0.###"), minFreq.Item1, avgFreq.ToString("0.###") };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { "Max Demand", "Min Demand" };
+            newRow.ItemArray = new string[] { "Max Demand", "Max Demand Time", "Min Demand", "Min Demand Time", "" };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { maxDem.Item2.ToString("0.###"), minDem.Item2.ToString("0.###") };
+            newRow.ItemArray = new string[] { maxDem.Item2.ToString("F0"), maxDem.Item1, minDem.Item2.ToString("F0"), minDem.Item1 };
             logBookDt.Rows.Add(newRow);
 
             LogBookDataView.ItemsSource = logBookDt.DefaultView;
+        }
+
+        private void GuessTimes_Click(object sender, RoutedEventArgs e)
+        {
+            SetInitialStartEndTimes();
         }
     }
 }
