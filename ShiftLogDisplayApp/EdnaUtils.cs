@@ -9,8 +9,8 @@ namespace ShiftLogDisplayApp
 {
     public class EdnaUtils
     {
-        public const string FreqPnt = "WRLDCMP.SCADA1.A47000";
-        public const string DemPnt = "WRLDCMP.SCADA1.A47000";
+        public const string FreqPnt = "WRLDCMP.SCADA1.A0036324";
+        public const string DemPnt = "WRLDCMP.SCADA1.A0047000";
         public static List<(string, double)> GetData(DateTime startTime, DateTime endTime, string pnt)
         {
             List<(string, double)> historyResults = new List<(string, double)>();
