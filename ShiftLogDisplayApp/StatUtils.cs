@@ -8,7 +8,7 @@ namespace ShiftLogDisplayApp
 {
     public class StatUtils
     {
-        public static (string, double) GetMaxValueData(List<(string, double)> dataInp)
+        public static (string, double) GetMaxValueInfo(List<(string, double)> dataInp, bool considerSign)
         {
             (string, double) res = ("", 0);
             if (dataInp.Count == 0)
@@ -21,7 +21,11 @@ namespace ShiftLogDisplayApp
             }
             for (int i = 0; i < dataInp.Count; i++)
             {
-                if (res.Item2 < dataInp[i].Item2)
+                if (considerSign == true && (res.Item2 < dataInp[i].Item2))
+                {
+                    res = dataInp[i];
+                }
+                else if (considerSign == false && (Math.Abs(res.Item2) < Math.Abs(dataInp[i].Item2)))
                 {
                     res = dataInp[i];
                 }
@@ -29,7 +33,7 @@ namespace ShiftLogDisplayApp
             return res;
         }
 
-        public static (string, double) GetMinValueData(List<(string, double)> dataInp)
+        public static (string, double) GetMinValueInfo(List<(string, double)> dataInp, bool considerSign)
         {
             (string, double) res = ("", 0);
             if (dataInp.Count == 0)
@@ -42,7 +46,11 @@ namespace ShiftLogDisplayApp
             }
             for (int i = 0; i < dataInp.Count; i++)
             {
-                if (res.Item2 > dataInp[i].Item2)
+                if (considerSign == true && (res.Item2 > dataInp[i].Item2))
+                {
+                    res = dataInp[i];
+                }
+                else if (considerSign == false && (Math.Abs(res.Item2) > Math.Abs(dataInp[i].Item2)))
                 {
                     res = dataInp[i];
                 }

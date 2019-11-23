@@ -11,6 +11,10 @@ namespace ShiftLogDisplayApp
     {
         public const string FreqPnt = "WRLDCMP.SCADA1.A0036324";
         public const string DemPnt = "WRLDCMP.SCADA1.A0047000";
+        public const string WrErPnt = "WRLDCMP.SCADA1.A0047000";
+        public const string WrSrPnt = "WRLDCMP.SCADA1.A0047000";
+        public const string WrNrPnt = "WRLDCMP.SCADA1.A0047000";
+        public const string WrIrPnt = "WRLDCMP.SCADA1.A0047000";
         public static List<(string, double)> GetData(DateTime startTime, DateTime endTime, string pnt)
         {
             List<(string, double)> historyResults = new List<(string, double)>();

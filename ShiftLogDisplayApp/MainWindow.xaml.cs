@@ -71,33 +71,54 @@ namespace ShiftLogDisplayApp
             DateTime endTime = EndTimePicker.Value.GetValueOrDefault();
             // get freq data
             List<(string, double)> freqVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.FreqPnt);
-            (string, double) maxFreq = StatUtils.GetMaxValueData(freqVals);
-            (string, double) minFreq = StatUtils.GetMinValueData(freqVals);
+            (string, double) maxFreq = StatUtils.GetMaxValueInfo(freqVals, true);
+            (string, double) minFreq = StatUtils.GetMinValueInfo(freqVals, true);
             double avgFreq = StatUtils.GetAvgValue(freqVals);
             // get demand data
             List<(string, double)> demVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.DemPnt);
-            (string, double) maxDem = StatUtils.GetMaxValueData(demVals);
-            (string, double) minDem = StatUtils.GetMinValueData(demVals);
+            (string, double) maxDem = StatUtils.GetMaxValueInfo(demVals, true);
+            (string, double) minDem = StatUtils.GetMinValueInfo(demVals, true);
+            // get WR-SR data
+            List<(string, double)> wrSrVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.WrSrPnt);
+            (string, double) maxWrSr = StatUtils.GetMaxValueInfo(wrSrVals, true);
+            (string, double) minWrSr = StatUtils.GetMinValueInfo(wrSrVals, true);
+            // get WR-NR data
+            List<(string, double)> wrNrVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.WrNrPnt);
+            (string, double) maxWrNr = StatUtils.GetMaxValueInfo(wrNrVals, true);
+            (string, double) minWrNr = StatUtils.GetMinValueInfo(wrNrVals, true);
+            // get WR-ER data
+            List<(string, double)> wrErVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.WrErPnt);
+            (string, double) maxWrEr = StatUtils.GetMaxValueInfo(wrErVals, true);
+            (string, double) minWrEr = StatUtils.GetMinValueInfo(wrErVals, true);
+            // get WR IR data
+            List<(string, double)> wrIrVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.WrIrPnt);
+            (string, double) maxWrIr = StatUtils.GetMaxValueInfo(wrIrVals, true);
+            (string, double) minWrIr = StatUtils.GetMinValueInfo(wrIrVals, true);
 
             DataTable logBookDt = new DataTable();
-            int numColumns = 5;
+            int numColumns = 8;
             for (var c = 0; c < numColumns; c++)
             {
                 logBookDt.Columns.Add(new DataColumn(c.ToString()));
             }
             DataRow newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { "Max Freq", "Max Freq Time", "Min Freq", "Min Freq Time", "Avg Freq" };
+            newRow.ItemArray = new string[] { "Max Freq", "Max Freq Time", "Min Freq", "Min Freq Time", "Avg Freq", "", "", "" };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { maxFreq.Item2.ToString("0.###"), maxFreq.Item1, minFreq.Item2.ToString("0.###"), minFreq.Item1, avgFreq.ToString("0.###") };
+            newRow.ItemArray = new string[] { maxFreq.Item2.ToString("0.###"), maxFreq.Item1, minFreq.Item2.ToString("0.###"), minFreq.Item1, avgFreq.ToString("0.###"), "", "", "" };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { "Max Demand", "Max Demand Time", "Min Demand", "Min Demand Time", "" };
+            newRow.ItemArray = new string[] { "Max Demand", "Max Demand Time", "Min Demand", "Min Demand Time", "", "", "", "" };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { maxDem.Item2.ToString("F0"), maxDem.Item1, minDem.Item2.ToString("F0"), minDem.Item1 };
+            newRow.ItemArray = new string[] { maxDem.Item2.ToString("F0"), maxDem.Item1, minDem.Item2.ToString("F0"), minDem.Item1, "", "", "", "" };
             logBookDt.Rows.Add(newRow);
-
+            newRow = logBookDt.NewRow();
+            newRow.ItemArray = new string[] { "Max WR-ER", "Min WR-ER", "Max WR-SR", "Min WR-SR", "Max WR-NR", "Min WR-NR", "Max IR", "Min IR" };
+            logBookDt.Rows.Add(newRow);
+            newRow = logBookDt.NewRow();
+            newRow.ItemArray = new string[] { maxWrEr.Item2.ToString("F0"), minWrEr.Item2.ToString("F0"), maxWrSr.Item2.ToString("F0"), minWrSr.Item2.ToString("F0"), maxWrNr.Item2.ToString("F0"), minWrNr.Item2.ToString("F0"), maxWrIr.Item2.ToString("F0"), minWrIr.Item2.ToString("F0") };
+            logBookDt.Rows.Add(newRow);
             LogBookDataView.ItemsSource = logBookDt.DefaultView;
         }
 
