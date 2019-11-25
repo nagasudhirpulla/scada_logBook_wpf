@@ -105,19 +105,19 @@ namespace ShiftLogDisplayApp
             newRow.ItemArray = new string[] { "Max Freq", "Max Freq Time", "Min Freq", "Min Freq Time", "Avg Freq", "", "", "" };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { maxFreq.Item2.ToString("0.###"), maxFreq.Item1, minFreq.Item2.ToString("0.###"), minFreq.Item1, avgFreq.ToString("0.###"), "", "", "" };
+            newRow.ItemArray = new string[] { maxFreq.Item2.ToString("0.###"), TillMinsOnly(maxFreq.Item1), minFreq.Item2.ToString("0.###"), TillMinsOnly(minFreq.Item1), avgFreq.ToString("0.###"), "", "", "" };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
             newRow.ItemArray = new string[] { "Max Demand", "Max Demand Time", "Min Demand", "Min Demand Time", "", "", "", "" };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { maxDem.Item2.ToString("F0"), maxDem.Item1, minDem.Item2.ToString("F0"), minDem.Item1, "", "", "", "" };
+            newRow.ItemArray = new string[] { maxDem.Item2.ToString("F0"), TillMinsOnly(maxDem.Item1), minDem.Item2.ToString("F0"), TillMinsOnly(minDem.Item1), "", "", "", "" };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { "Max WR-ER", "Min WR-ER", "Max WR-SR", "Min WR-SR", "Max WR-NR", "Min WR-NR", "Max IR", "Min IR" };
+            newRow.ItemArray = new string[] { "Min WR-ER", "Max WR-ER", "Min WR-SR", "Max WR-SR", "Min WR-NR", "Max WR-NR", "Min IR", "Max IR" };
             logBookDt.Rows.Add(newRow);
             newRow = logBookDt.NewRow();
-            newRow.ItemArray = new string[] { maxWrEr.Item2.ToString("F0"), minWrEr.Item2.ToString("F0"), maxWrSr.Item2.ToString("F0"), minWrSr.Item2.ToString("F0"), maxWrNr.Item2.ToString("F0"), minWrNr.Item2.ToString("F0"), maxWrIr.Item2.ToString("F0"), minWrIr.Item2.ToString("F0") };
+            newRow.ItemArray = new string[] { minWrEr.Item2.ToString("F0"), maxWrEr.Item2.ToString("F0"), minWrSr.Item2.ToString("F0"), maxWrSr.Item2.ToString("F0"), minWrNr.Item2.ToString("F0"), maxWrNr.Item2.ToString("F0"), minWrIr.Item2.ToString("F0"), maxWrIr.Item2.ToString("F0") };
             logBookDt.Rows.Add(newRow);
             LogBookDataView.ItemsSource = logBookDt.DefaultView;
         }
@@ -125,6 +125,16 @@ namespace ShiftLogDisplayApp
         private void GuessTimes_Click(object sender, RoutedEventArgs e)
         {
             SetInitialStartEndTimes();
+        }
+
+        private string TillMinsOnly(string timeStr)
+        {
+            string subStr =
+            !String.IsNullOrWhiteSpace(timeStr) && timeStr.Length >= 5
+            ? timeStr.Substring(0, 5)
+            : timeStr;
+
+            return subStr;
         }
     }
 }
