@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:ShiftLogDisplayApp"
         mc:Ignorable="d"
-        Title="Shift Log Book Data" Height="450" Width="900">
+        Title="Shift Log Book Data" Height="600" Width="1000">
     <ScrollViewer Margin="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
