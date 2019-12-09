@@ -29,6 +29,7 @@ namespace ShiftLogDisplayApp
         }
 
         private UIVM UIEditVM = new UIVM();
+        private ConfigurationManager Config_ = new ConfigurationManager();
 
         private void SetInitialStartEndTimes()
         {
@@ -66,20 +67,23 @@ namespace ShiftLogDisplayApp
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
+            // initialise data points from json
+            Config_.Initialize();
+
             // get start and end times
             DateTime startTime = StartTimePicker.Value.GetValueOrDefault();
             DateTime endTime = EndTimePicker.Value.GetValueOrDefault();
             // get freq data
-            List<(string, double)> freqVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.FreqPnt);
+            List<(string, double)> freqVals = EdnaUtils.GetData(startTime, endTime, Config_.FreqPnt);
             (string, double) maxFreq = StatUtils.GetMaxValueInfo(freqVals, true);
             (string, double) minFreq = StatUtils.GetMinValueInfo(freqVals, true);
             double avgFreq = StatUtils.GetAvgValue(freqVals);
             // get demand data
-            List<(string, double)> demVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.DemPnt);
+            List<(string, double)> demVals = EdnaUtils.GetData(startTime, endTime, Config_.DemPnt);
             (string, double) maxDem = StatUtils.GetMaxValueInfo(demVals, true);
             (string, double) minDem = StatUtils.GetMinValueInfo(demVals, true);
             // get WR-SR data
-            List<(string, double)> wrSrVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.WrSrPnt);
+            List<(string, double)> wrSrVals = EdnaUtils.GetData(startTime, endTime, Config_.WrSrPnt);
             List<(string, double)> exportVals = wrSrVals.Where(x => x.Item2 < 0).ToList();
             List<(string, double)> importVals = wrSrVals.Where(x => x.Item2 > 0).ToList();
             (string, double) maxWrSrEx = StatUtils.GetMaxValueInfo(exportVals, true);
@@ -87,7 +91,7 @@ namespace ShiftLogDisplayApp
             (string, double) maxWrSrImp = StatUtils.GetMaxValueInfo(importVals, true);
             (string, double) minWrSrImp = StatUtils.GetMinValueInfo(importVals, true);
             // get WR-NR data
-            List<(string, double)> wrNrVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.WrNrPnt);
+            List<(string, double)> wrNrVals = EdnaUtils.GetData(startTime, endTime, Config_.WrNrPnt);
             exportVals = wrNrVals.Where(x => x.Item2 < 0).ToList();
             importVals = wrNrVals.Where(x => x.Item2 > 0).ToList();
             (string, double) maxWrNrEx = StatUtils.GetMaxValueInfo(exportVals, true);
@@ -95,7 +99,7 @@ namespace ShiftLogDisplayApp
             (string, double) maxWrNrImp = StatUtils.GetMaxValueInfo(importVals, true);
             (string, double) minWrNrImp = StatUtils.GetMinValueInfo(importVals, true);
             // get WR-ER data
-            List<(string, double)> wrErVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.WrErPnt);
+            List<(string, double)> wrErVals = EdnaUtils.GetData(startTime, endTime, Config_.WrErPnt);
             exportVals = wrErVals.Where(x => x.Item2 < 0).ToList();
             importVals = wrErVals.Where(x => x.Item2 > 0).ToList();
             (string, double) maxWrErEx = StatUtils.GetMaxValueInfo(exportVals, true);
@@ -103,7 +107,7 @@ namespace ShiftLogDisplayApp
             (string, double) maxWrErImp = StatUtils.GetMaxValueInfo(importVals, true);
             (string, double) minWrErImp = StatUtils.GetMinValueInfo(importVals, true);
             // get WR IR data
-            List<(string, double)> wrIrVals = EdnaUtils.GetData(startTime, endTime, EdnaUtils.WrIrPnt);
+            List<(string, double)> wrIrVals = EdnaUtils.GetData(startTime, endTime, Config_.WrIrPnt);
             exportVals = wrIrVals.Where(x => x.Item2 < 0).ToList();
             importVals = wrIrVals.Where(x => x.Item2 > 0).ToList();
             (string, double) maxWrIrEx = StatUtils.GetMaxValueInfo(exportVals, true);
